@@ -19,16 +19,24 @@ export function useCapacitorApp() {
     checkCapacitor();
 
     // Set up back button handling
-    const handleBackButton = CapApp.addListener('backButton', ({ canGoBack }) => {
-      if (!canGoBack) {
-        CapApp.exitApp();
-      } else {
-        window.history.back();
-      }
-    });
+    let backButtonListener: any = null;
+    const setupBackButton = async () => {
+      backButtonListener = await CapApp.addListener('backButton', ({ canGoBack }) => {
+        if (!canGoBack) {
+          CapApp.exitApp();
+        } else {
+          window.history.back();
+        }
+      });
+    };
+    
+    setupBackButton();
 
+    // Cleanup function
     return () => {
-      handleBackButton.remove();
+      if (backButtonListener) {
+        backButtonListener.remove();
+      }
     };
   }, []);
 

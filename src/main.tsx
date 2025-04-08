@@ -1,10 +1,19 @@
 
 import { createRoot } from 'react-dom/client';
-import { defineCustomElements } from '@ionic/pwa-elements/loader';
 import App from './App.tsx';
 import './index.css';
 
+// Import PWA elements conditionally to prevent build errors
+const loadPwaElements = async () => {
+  try {
+    const { defineCustomElements } = await import('@ionic/pwa-elements/loader');
+    defineCustomElements(window);
+  } catch (error) {
+    console.warn('Failed to load PWA elements:', error);
+  }
+};
+
 // Call the element loader after the platform has been bootstrapped
-defineCustomElements(window);
+loadPwaElements();
 
 createRoot(document.getElementById("root")!).render(<App />);
