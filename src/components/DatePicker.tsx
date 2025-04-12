@@ -17,6 +17,10 @@ interface DatePickerProps {
 }
 
 export function DatePicker({ date, setDate }: DatePickerProps) {
+  // Format the date using the format from date-fns v4
+  // In v4, format patterns changed slightly
+  const formattedDate = date ? format(date, 'PPP') : '';
+
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -28,7 +32,7 @@ export function DatePicker({ date, setDate }: DatePickerProps) {
           )}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
-          {date ? format(date, "PPP") : <span>Pick a date</span>}
+          {date ? formattedDate : <span>Pick a date</span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" align="start">
