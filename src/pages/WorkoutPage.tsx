@@ -35,12 +35,6 @@ const WorkoutPage = () => {
     }
   };
 
-  const handleCompleteWorkout = () => {
-    completeWorkout();
-    toast.success("Workout completed! 💪");
-    navigate("/");
-  };
-
   const handleDateChange = (date: Date) => {
     setWorkoutDate(date);
     if (currentWorkout) {
@@ -82,12 +76,6 @@ const WorkoutPage = () => {
       {currentWorkout && (
         <div className="space-y-4">
           <WorkoutCard workout={currentWorkout} />
-          <Button 
-            onClick={handleCompleteWorkout} 
-            className="w-full bg-iron-700 hover:bg-iron-800"
-          >
-            Complete Workout
-          </Button>
         </div>
       )}
       
