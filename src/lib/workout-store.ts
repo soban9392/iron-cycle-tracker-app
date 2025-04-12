@@ -1,4 +1,3 @@
-
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { v4 as uuidv4 } from 'uuid';
@@ -21,9 +20,11 @@ interface WorkoutState {
   workoutHistory: WorkoutHistory[];
   nextWorkoutType: WorkoutType;
   createNewWorkout: () => void;
+  createWorkoutForDate: (date: Date) => void;
   updateExerciseWeight: (exerciseId: string, weight: number) => void;
   toggleExerciseCompleted: (exerciseId: string) => void;
   completeWorkout: () => void;
+  deleteWorkout: (date: string) => void;
   getExerciseHistory: (exerciseName: string) => { date: string; weight: number }[];
 }
 
@@ -55,6 +56,33 @@ export const useWorkoutStore = create<WorkoutState>()(
             id: uuidv4(),
             type: nextWorkoutType,
             date: new Date().toISOString(),
+            exercises: workoutExercises,
+            completed: false
+          }
+        });
+      },
+
+      createWorkoutForDate: (date: Date) => {
+        const { nextWorkoutType } = get();
+        const exercises = nextWorkoutType === 'A' ? WORKOUT_A : WORKOUT_B;
+        
+        // Get last weights from history for each exercise if available
+        const workoutExercises = exercises.map(exercise => {
+          const history = get().getExerciseHistory(exercise.name);
+          const lastWeight = history.length > 0 ? history[0].weight : 0;
+          
+          return {
+            ...exercise,
+            weight: lastWeight,
+            completed: false
+          };
+        });
+
+        set({
+          currentWorkout: {
+            id: uuidv4(),
+            type: nextWorkoutType,
+            date: date.toISOString(),
             exercises: workoutExercises,
             completed: false
           }
@@ -115,6 +143,12 @@ export const useWorkoutStore = create<WorkoutState>()(
           currentWorkout: null,
           workoutHistory: [historyEntry, ...state.workoutHistory],
           nextWorkoutType: state.nextWorkoutType === 'A' ? 'B' : 'A'
+        }));
+      },
+
+      deleteWorkout: (date) => {
+        set(state => ({
+          workoutHistory: state.workoutHistory.filter(workout => workout.date !== date)
         }));
       },
 
