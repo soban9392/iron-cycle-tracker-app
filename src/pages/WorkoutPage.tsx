@@ -55,8 +55,8 @@ const WorkoutPage = () => {
     <div className="container max-w-md mx-auto px-4 py-8 pb-16">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold flex items-center">
-          <Dumbbell className="mr-2 h-6 w-6 text-iron-700" />
-          Current Workout
+          <Dumbbell className="mr-2 h-6 w-6 text-primary" />
+          Soban's Workout
         </h1>
         <Button 
           variant="outline" 

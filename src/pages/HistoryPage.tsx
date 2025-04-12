@@ -22,7 +22,7 @@ const HistoryPage = () => {
     <div className="container max-w-md mx-auto px-4 py-8 pb-16">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold flex items-center">
-          <History className="mr-2 h-6 w-6 text-iron-700" />
+          <History className="mr-2 h-6 w-6 text-primary" />
           Workout History
         </h1>
         <Button 
