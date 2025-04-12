@@ -1,7 +1,6 @@
 
 import { useState } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { WorkoutExercise } from "@/types/workout";
@@ -25,23 +24,13 @@ const ExerciseItem = ({ exercise }: ExerciseItemProps) => {
     <Card className="exercise-card overflow-hidden border-l-4 border-l-iron-500">
       <CardContent className="p-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <Checkbox 
-              id={`check-${exercise.id}`} 
-              checked={exercise.completed}
-              onCheckedChange={() => toggleExerciseCompleted(exercise.id)}
-            />
-            <div className="grid gap-1.5">
-              <Label 
-                htmlFor={`check-${exercise.id}`} 
-                className={`font-medium ${exercise.completed ? 'line-through text-muted-foreground' : ''}`}
-              >
-                {exercise.name}
-              </Label>
-              <p className="text-xs text-muted-foreground">
-                {exercise.sets} sets × {exercise.reps} reps
-              </p>
+          <div className="grid gap-1.5">
+            <div className="font-medium">
+              {exercise.name}
             </div>
+            <p className="text-xs text-muted-foreground">
+              {exercise.sets} sets × {exercise.reps} reps
+            </p>
           </div>
           
           <div className="flex items-center space-x-2">
