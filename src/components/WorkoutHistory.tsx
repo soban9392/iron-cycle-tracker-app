@@ -2,10 +2,12 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useWorkoutStore } from "@/lib/workout-store";
 import { format, parseISO } from "date-fns";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, Trash } from "lucide-react";
+import { toast } from "sonner";
+import { Button } from "./ui/button";
 
 const WorkoutHistory = () => {
-  const { workoutHistory } = useWorkoutStore();
+  const { workoutHistory, deleteWorkout } = useWorkoutStore();
   
   if (workoutHistory.length === 0) {
     return (
@@ -22,6 +24,11 @@ const WorkoutHistory = () => {
     );
   }
 
+  const handleDelete = (date: string) => {
+    deleteWorkout(date);
+    toast.success("Workout deleted successfully");
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -37,9 +44,19 @@ const WorkoutHistory = () => {
               <div className="flex-1">
                 <div className="flex justify-between items-center mb-1">
                   <h4 className="text-sm font-medium">Workout {workout.type}</h4>
-                  <span className="text-xs text-muted-foreground">
-                    {format(parseISO(workout.date), "MMM d, yyyy")}
-                  </span>
+                  <div className="flex items-center space-x-2">
+                    <span className="text-xs text-muted-foreground">
+                      {format(parseISO(workout.date), "MMM d, yyyy")}
+                    </span>
+                    <Button 
+                      variant="ghost" 
+                      size="icon" 
+                      className="h-6 w-6 text-red-500"
+                      onClick={() => handleDelete(workout.date)}
+                    >
+                      <Trash className="h-4 w-4" />
+                    </Button>
+                  </div>
                 </div>
                 <div className="space-y-1">
                   {workout.exercises.map((exercise, i) => (

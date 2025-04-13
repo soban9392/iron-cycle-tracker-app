@@ -20,18 +20,18 @@ const Index = () => {
   return (
     <div className="container max-w-md mx-auto px-4 pb-16">
       <div className="py-8 text-center">
-        <h1 className="text-3xl font-bold text-iron-900">Iron Cycle</h1>
+        <h1 className="text-3xl font-bold text-primary">Soban's Workout</h1>
         <p className="text-muted-foreground mt-2">Track your strength progress</p>
       </div>
       
-      <Card className="bg-gradient-to-br from-iron-800 to-iron-950 text-white mb-6">
+      <Card className="bg-gradient-to-br from-primary to-secondary text-white mb-6">
         <CardContent className="p-6">
           <div className="flex items-center mb-4">
             <Dumbbell className="h-6 w-6 mr-2" />
             <h2 className="text-xl font-semibold">Up Next</h2>
           </div>
           
-          <div className="bg-white/10 rounded-lg p-4 mb-4">
+          <div className="bg-white/20 rounded-lg p-4 mb-4 backdrop-blur-sm">
             <h3 className="text-lg font-medium">Workout {currentWorkout?.type || nextWorkoutType}</h3>
             <ul className="mt-2 space-y-1">
               {(currentWorkout ? currentWorkout.exercises : 
@@ -57,20 +57,20 @@ const Index = () => {
           
           <Button 
             onClick={handleStartWorkout} 
-            className="w-full bg-white text-iron-900 hover:bg-gray-100"
+            className="w-full bg-white text-primary hover:bg-gray-100"
           >
             {currentWorkout ? "Continue Workout" : "Start Workout"}
           </Button>
         </CardContent>
       </Card>
       
-      <Card>
+      <Card className="bg-gradient-to-t from-accent/10 to-transparent">
         <CardContent className="p-6">
           <h2 className="text-xl font-semibold mb-4">Your Training Plan</h2>
           
           <div className="space-y-4">
-            <div className="bg-iron-50 rounded-lg p-4">
-              <h3 className="font-medium mb-2">Workout A</h3>
+            <div className="bg-white rounded-lg p-4 shadow-md border border-primary/20">
+              <h3 className="font-medium mb-2 text-primary">Workout A</h3>
               <ul className="text-sm space-y-1">
                 <li className="flex justify-between">
                   <span>Squat</span>
@@ -87,8 +87,8 @@ const Index = () => {
               </ul>
             </div>
             
-            <div className="bg-iron-50 rounded-lg p-4">
-              <h3 className="font-medium mb-2">Workout B</h3>
+            <div className="bg-white rounded-lg p-4 shadow-md border border-secondary/20">
+              <h3 className="font-medium mb-2 text-secondary">Workout B</h3>
               <ul className="text-sm space-y-1">
                 <li className="flex justify-between">
                   <span>Squat</span>
