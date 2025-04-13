@@ -44,4 +44,7 @@ ext {
     androidxEspressoCoreVersion = '3.5.1'
     cordovaAndroidVersion = '10.1.1'
     coreSplashScreenVersion = '1.0.1'
+    
+    // Define Java version
+    javaVersion = JavaVersion.VERSION_17
 }
